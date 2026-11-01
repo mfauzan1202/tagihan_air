@@ -34,8 +34,11 @@ class BillListScreen extends ConsumerWidget {
                         itemCount: items.length,
                         separatorBuilder: (_, _) =>
                             const Divider(height: 1, indent: 16),
-                        itemBuilder: (context, index) =>
-                            BillTile(bill: items[index]),
+                        itemBuilder: (context, index) => BillTile(
+                          bill: items[index],
+                          onTap: () =>
+                              context.push('/bills/${items[index].id}'),
+                        ),
                       ),
               ),
               loading: () => const Center(child: CircularProgressIndicator()),

@@ -6,6 +6,8 @@ import 'package:tagihan_air/data/bill_repository.dart';
 import 'package:tagihan_air/models/bill.dart';
 import 'package:tagihan_air/state/bill_providers.dart';
 import 'package:tagihan_air/ui/formatting.dart';
+import 'package:tagihan_air/ui/screens/bill_not_found_screen.dart';
+import 'package:tagihan_air/ui/widgets/error_view.dart';
 
 class BillFormScreen extends ConsumerStatefulWidget {
   const BillFormScreen({super.key, this.bill});
@@ -264,5 +266,33 @@ class _BillFormScreenState extends ConsumerState<BillFormScreen> {
         ),
       ),
     );
+  }
+}
+
+class EditBillScreen extends ConsumerWidget {
+  const EditBillScreen({super.key, required this.billId});
+
+  final int billId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref
+        .watch(billProvider(billId))
+        .when(
+          data: (bill) => bill == null
+              ? const BillNotFoundScreen()
+              : BillFormScreen(bill: bill),
+          loading: () => Scaffold(
+            appBar: AppBar(),
+            body: const Center(child: CircularProgressIndicator()),
+          ),
+          error: (error, _) => Scaffold(
+            appBar: AppBar(),
+            body: ErrorView(
+              message: 'Tagihan belum bisa dimuat.',
+              onRetry: () => ref.invalidate(billProvider(billId)),
+            ),
+          ),
+        );
   }
 }

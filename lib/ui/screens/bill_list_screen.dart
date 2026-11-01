@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tagihan_air/state/bill_filter.dart';
 import 'package:tagihan_air/state/bill_providers.dart';
 import 'package:tagihan_air/state/database_providers.dart';
@@ -47,6 +48,11 @@ class BillListScreen extends ConsumerWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => context.push('/bills/new'),
+        icon: const Icon(Icons.add),
+        label: const Text('Tagihan'),
       ),
     );
   }

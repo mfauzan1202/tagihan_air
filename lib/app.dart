@@ -11,7 +11,12 @@ class TagihanAirApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Tagihan Air',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorSchemeSeed: const Color(0xFF0B6FA4)),
+      theme: ThemeData(
+        colorSchemeSeed: const Color(0xFF0B6FA4),
+        inputDecorationTheme: const InputDecorationTheme(
+          border: OutlineInputBorder(),
+        ),
+      ),
       locale: const Locale('id', 'ID'),
       supportedLocales: const [Locale('id', 'ID')],
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

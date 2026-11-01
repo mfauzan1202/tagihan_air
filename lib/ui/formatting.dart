@@ -11,8 +11,11 @@ final _thousands = NumberFormat.decimalPattern('id_ID');
 final _shortDate = DateFormat('d MMM yyyy', 'id_ID');
 final _longDate = DateFormat('EEEE, d MMMM yyyy', 'id_ID');
 final _period = DateFormat('MMMM yyyy', 'id_ID');
+final _month = DateFormat('MMMM', 'id_ID');
 
 String formatRupiah(int amount) => _rupiah.format(amount);
+
+String formatThousands(int value) => _thousands.format(value);
 
 String formatDate(DateTime date) => _shortDate.format(date);
 
@@ -20,6 +23,8 @@ String formatLongDate(DateTime date) => _longDate.format(date);
 
 String formatPeriod(int year, int month) =>
     _period.format(DateTime(year, month));
+
+String formatMonth(int month) => _month.format(DateTime(2000, month));
 
 String dueLabel(Bill bill, DateTime today) {
   if (bill.isPaid) return 'Lunas';
@@ -51,7 +56,7 @@ class ThousandsSeparatorFormatter extends TextInputFormatter {
     if (digits.isEmpty) return TextEditingValue.empty;
     if (digits.length > maxDigits) return oldValue;
 
-    final text = _thousands.format(int.parse(digits));
+    final text = formatThousands(int.parse(digits));
     return TextEditingValue(
       text: text,
       selection: TextSelection.collapsed(offset: text.length),

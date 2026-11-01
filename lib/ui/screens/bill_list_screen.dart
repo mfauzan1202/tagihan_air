@@ -16,7 +16,16 @@ class BillListScreen extends ConsumerWidget {
     final bills = ref.watch(visibleBillsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Tagihan Air')),
+      appBar: AppBar(
+        title: const Text('Tagihan Air'),
+        actions: [
+          IconButton(
+            tooltip: 'Pengaturan',
+            icon: const Icon(Icons.settings_outlined),
+            onPressed: () => context.push('/settings'),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           const Padding(

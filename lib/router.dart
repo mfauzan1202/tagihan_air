@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tagihan_air/ui/screens/bill_detail_screen.dart';
 import 'package:tagihan_air/ui/screens/bill_form_screen.dart';
 import 'package:tagihan_air/ui/screens/bill_list_screen.dart';
+import 'package:tagihan_air/ui/screens/settings_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final router = GoRouter(
@@ -27,6 +28,10 @@ final routerProvider = Provider<GoRouter>((ref) {
                     EditBillScreen(billId: _billId(state)!),
               ),
             ],
+          ),
+          GoRoute(
+            path: 'settings',
+            builder: (context, state) => const SettingsScreen(),
           ),
         ],
       ),

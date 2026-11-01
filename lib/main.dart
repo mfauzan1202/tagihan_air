@@ -6,5 +6,5 @@ import 'package:tagihan_air/app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('id_ID');
-  runApp(const ProviderScope(child: TagihanAirApp()));
+  runApp(ProviderScope(retry: (_, _) => null, child: const TagihanAirApp()));
 }

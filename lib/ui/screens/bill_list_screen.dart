@@ -54,7 +54,7 @@ class BillListScreen extends ConsumerWidget {
               error: (error, _) => ErrorView(
                 message:
                     'Tidak bisa terhubung ke database '
-                    '${ref.read(databaseConfigProvider)}.',
+                    '${ref.watch(databaseConfigProvider)}.',
                 onRetry: () => ref.invalidate(databaseReadyProvider),
               ),
             ),

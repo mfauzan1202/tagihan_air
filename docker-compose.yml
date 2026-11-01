@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: tagihan-air-db
+    environment:
+      POSTGRES_USER: tagihan
+      POSTGRES_PASSWORD: tagihan
+      POSTGRES_DB: tagihan_air
+      TZ: Asia/Makassar
+    ports:
+      - "${DB_PORT:-5435}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tagihan -d tagihan_air"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

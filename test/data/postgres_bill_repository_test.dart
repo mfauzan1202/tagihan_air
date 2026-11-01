@@ -44,7 +44,8 @@ void main() {
         password: 'tagihan',
       ),
     );
-    await pool.execute('DROP TABLE IF EXISTS bills, schema_migrations');
+    await pool.execute('DROP SCHEMA IF EXISTS public CASCADE');
+    await pool.execute('CREATE SCHEMA public');
     await migrate(pool);
     repository = PostgresBillRepository(pool);
   });
@@ -54,12 +55,12 @@ void main() {
   setUp(() => pool.execute('TRUNCATE bills RESTART IDENTITY'));
 
   test('migrate is safe to run again', () async {
+    final before = await pool.execute('SELECT version FROM schema_migrations');
+
     await migrate(pool);
 
-    final versions = await pool.execute(
-      'SELECT version FROM schema_migrations',
-    );
-    expect(versions, hasLength(1));
+    final after = await pool.execute('SELECT version FROM schema_migrations');
+    expect(after, hasLength(before.length));
   });
 
   test('add stores a new bill as unpaid', () async {
